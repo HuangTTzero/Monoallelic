@@ -1,0 +1,3 @@
+cat /data/R02/huangtt39/ATAC-RNAseq/snp/pwk/all_PWK_SNPs.txt  /data/R02/huangtt39/ATAC-RNAseq/snp/129/all_129_SNPs.txt |sed 's/\//\t/g'|awk '{print "chr"$2"\t"$3"\t.\t"$5"\tN\t288\tPASS\tunknown\tunknown"}'|sort -k 1,1 -k 2n,2|uniq >/data/R02/huangtt39/ATAC-RNAseq/snp/merge_snp/merge_snp2mask.txt
+# the head file is a head of each vcf file
+cat ~/ATAC-RNAseq/snp/pwk/head merge_snp2mask.txt > /data/R02/huangtt39/ATAC-RNAseq/snp/merge_snp/merge_snp2mask.vcf

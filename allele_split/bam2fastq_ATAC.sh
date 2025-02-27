@@ -1,0 +1,50 @@
+dir="SNPsplit"
+head="dataset_ATAC_total"
+file1='/data/R02/huangtt39/ATAC-RNAseq/mapping/dataset/split/ATAC/'$dir'/'$head'.genome1.bam'
+file2='/data/R02/huangtt39/ATAC-RNAseq/mapping/dataset/split/ATAC/'$dir'/'$head'.genome2.bam'
+outdir='/data/R02/huangtt39/ATAC-RNAseq/mapping/dataset/split/ATAC/'$dir'/'
+echo 'Processing'$outdir
+echo 'Bam2fastq'
+bedtools bamtofastq -i $file1 -fq $outdir$head'_g1_R1.fastq' -fq2 $outdir$head'_g1_R2.fastq'
+bedtools bamtofastq -i $file2 -fq $outdir$head'_g2_R1.fastq' -fq2 $outdir$head'_g2_R2.fastq'
+echo 'Delet /1 and /2'
+sed -i 's/\/1//g' $outdir$head'_g1_R1.fastq'
+sed -i 's/\/2//g' $outdir$head'_g1_R2.fastq'
+sed -i 's/\/1//g' $outdir$head'_g2_R1.fastq'
+sed -i 's/\/2//g' $outdir$head'_g2_R2.fastq'
+echo -e "\n"
+echo 'Gzip g1.fastq g2.fastq'
+gzip $outdir$head'_g1_R1.fastq'
+gzip $outdir$head'_g1_R2.fastq'
+gzip $outdir$head'_g2_R1.fastq'
+gzip $outdir$head'_g2_R2.fastq'
+#提取G1和G2的reads ID
+echo 'Get reads ID of G1 and G2'
+echo 'Filter I1 and I2 file'
+seqkit seq --name --only-id $outdir$head'_g1_R2.fastq.gz'> $outdir$head'_g1_read_id.txt'
+seqkit seq --name --only-id $outdir$head'_g2_R2.fastq.gz'> $outdir$head'_g2_read_id.txt'
+ori_head='/data/R02/huangtt39/ATAC-RNAseq/mapping/dataset/fastq/ATAC/dataset_ATAC_total'
+out_head1='dataset-scATAC-G1_S1'
+out_head2='dataset-scATAC-G2_S1'
+seq_outdir='/data/R02/huangtt39/ATAC-RNAseq/mapping/dataset/split/ATAC/'
+#根据ID 提取I2和I1
+seqkit grep --pattern-file $outdir$head'_g1_read_id.txt' ${ori_head}_I1.fastq.gz|seqkit sort -n|gzip >$seq_outdir'g1_fq/'$out_head1'_L002_I1_001.fastq.gz'
+seqkit grep --pattern-file $outdir$head'_g1_read_id.txt' ${ori_head}_I2.fastq.gz|seqkit sort -n|gzip >$seq_outdir'g1_fq/'$out_head1'_L002_I2_001.fastq.gz'
+seqkit grep --pattern-file $outdir$head'_g2_read_id.txt' ${ori_head}_I1.fastq.gz|seqkit sort -n|gzip >$seq_outdir'g2_fq/'$out_head2'_L002_I1_001.fastq.gz'
+seqkit grep --pattern-file $outdir$head'_g2_read_id.txt' ${ori_head}_I2.fastq.gz|seqkit sort -n|gzip >$seq_outdir'g2_fq/'$out_head2'_L002_I2_001.fastq.gz'
+#R1和R2 按名称排序
+echo 'Sort files'
+seqkit sort -n $outdir$head'_g1_R1.fastq.gz'|gzip >$outdir$head'_g1_R1.sort.fastq.gz'
+seqkit sort -n $outdir$head'_g1_R2.fastq.gz'|gzip >$outdir$head'_g1_R2.sort.fastq.gz'
+seqkit sort -n $outdir$head'_g2_R1.fastq.gz'|gzip >$outdir$head'_g2_R1.sort.fastq.gz'
+seqkit sort -n $outdir$head'_g2_R2.fastq.gz'|gzip >$outdir$head'_g2_R2.sort.fastq.gz'
+rm $outdir$head'_g1_R1.fastq.gz' $outdir$head'_g1_R2.fastq.gz' $outdir$head'_g2_R1.fastq.gz' $outdir$head'_g2_R2.fastq.gz'
+# R1,R2软连接
+echo 'Build ln for R1 and R2'
+ln -s $outdir${head}_g1*.sort.fastq.gz $seq_outdir'g1_fq/'
+mv $seq_outdir'g1_fq/'$head'_g1_R1.sort.fastq.gz' $seq_outdir'g1_fq/'$out_head1'_L002_R1_001.fastq.gz'
+mv $seq_outdir'g1_fq/'$head'_g1_R2.sort.fastq.gz' $seq_outdir'g1_fq/'$out_head1'_L002_R2_001.fastq.gz'
+ln -s $outdir${head}_g2*.sort.fastq.gz $seq_outdir'g2_fq/'
+mv $seq_outdir'g2_fq/'$head'_g2_R1.sort.fastq.gz' $seq_outdir'g2_fq/'$out_head2'_L002_R1_001.fastq.gz'
+mv $seq_outdir'g2_fq/'$head'_g2_R2.sort.fastq.gz' $seq_outdir'g2_fq/'$out_head2'_L002_R2_001.fastq.gz'
+echo -e "\n\n\n"
