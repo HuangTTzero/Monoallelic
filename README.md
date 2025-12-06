@@ -7,7 +7,8 @@ This repository contains scripts and tools for identifying random monoallelic ex
 ### 1.1 Filter SNPs for High Confidence Variants
 
 This script filters the latest VCF file to retain high-confidence SNPs from various strains (e.g., 129P2 and PWK).
-
+First, create the directory SNPs_Sanger.
+Then
 ```bash
 perl filter_SNPs_129P2.pl
 perl filter_SNPs_PWK.pl
