@@ -60,4 +60,4 @@ https://github.com/jinxu9/AlleleSpecificATACseq
 
 We have made simple modifications to these original scripts to adapt them for use with our hybrid progenitor genomes (129P2 and PWK). The modified versions are included in the software folder.
 ## 6. Cite
-Please cite the analysis code archived on Zenodo using https://zenodo.org/records/22822204.
+Please cite the analysis code archived on Zenodo using DOI：10.5281/zenodo.22822204.
