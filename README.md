@@ -50,7 +50,7 @@ bash bam2fastq_ATAC.sh
 bash bam2fastq_RNA.sh
 ```
 ## 4. Data Analysis Code
-The data analysis scripts for generating figures and processing data can be found in the Figure folder of this repository. These scripts include visualizations and analyses that support the results of this project.
+The data analysis scripts for generating figures and processing data can be found in the Figure folder of this repository. These scripts include visualizations and analyses that support the results of this project. The allele-specific datasets generated from the different F1 mouse crosses analyzed in this study are available on Zenodo at https://doi.org/10.5281/zenodo.22842720.
 
 ## 5. Software for BAM File Assignment
 The scripts used for assigning reads in BAM files to specific alleles come from the following repositories:
@@ -59,3 +59,5 @@ https://github.com/sandberg-lab/Smart-seq3/tree/master/allele_level_expression
 https://github.com/jinxu9/AlleleSpecificATACseq
 
 We have made simple modifications to these original scripts to adapt them for use with our hybrid progenitor genomes (129P2 and PWK). The modified versions are included in the software folder.
+## 6. Cite
+Please cite the analysis code archived on Zenodo using DOI 10.5281/zenodo.22822203.
