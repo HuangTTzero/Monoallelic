@@ -463,7 +463,7 @@ cell_number_p<-ggplot(cellnumber,aes(x=Var1,y=log10(Freq),fill=Var1))+
 ggsave(filename = "~/F1_OSN/F1joint_mask/celltype.pdf",cell_number_p, device = "pdf", width =15, height = 10, units = "cm", dpi = 300)
 
 
-# maker expression plot, Supplementary Figure 1a-b
+# maker expression plot, Supplementary Figure 1c
 cd_genes <- c("Omp","Gap43","Arhgap15","S100a9","Cntnap2","Cyp2g1","Sox11","Gucy1b2","Ptn")
 dotplot<-DotPlot(object = combined, features = cd_genes,group.by="celltype")+scale_color_gradientn(colors =c("#FCFfF5","#D1Dbbd","#3E606F","#193441"))
 ggsave(filename = "~/F1_OSN/F1joint_mask/dotplot.pdf",dotplot+theme(plot.title = element_text(hjust = 0.5,size=8),text=element_text(size=8),axis.text.y=element_text(size=8,color = "black"), axis.text.x=element_text(size=8,  color = "black")), device = "pdf", width = 18, height = 8, units = "cm", dpi = 300)
