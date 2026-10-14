@@ -139,7 +139,7 @@ write.xlsx(final_df, "~/F1_OSN/LiMCA/HIC/merge_impute/TAD_total_contact_counts.x
 final_df$Maternal_specific_dscore<-final_df$Maternal_specific_PP/(final_df$Maternal_specific_MM+final_df$Maternal_specific_PP)-0.5
 final_df$Paternal_specific_dscore<-final_df$Paternal_specific_PP/(final_df$Paternal_specific_MM+final_df$Paternal_specific_PP)-0.5
 final_df<-final_df%>%mutate(total_counts=(Paternal_specific_PP+Paternal_specific_MM+Maternal_specific_PP+Maternal_specific_MM))
-#Supplementary Figure 6a
+#Supplementary Figure 7a
 p <- ggplot(final_df, 
             aes(x = Paternal_specific_dscore, 
                 y = Maternal_specific_dscore,
