@@ -341,7 +341,7 @@ high_RME_ratio_p<-ggplot(high_RME_ratio2p, aes(x = gene, y = ratio*100, fill = d
     plot.title = element_text(hjust = 0.5,vjust = 0.5,size=10), 
     axis.text.y=element_text(size=10,color = "black"),
     axis.text.x=element_text(size=10,  color = "black",angle = 45, hjust = 1))  
-ggsave(filename = "~/F1_OSN/analysis/figure/Figure2/high_RME_rank.pdf",high_RME_count_p+high_RME_ratio_p+plot_layout(heights=c(1,1.5)), device = "pdf", width = 24, height = 14, units = "cm", dpi = 300,bg="white")
+ggsave(filename = "~/F1_OSN/analysis/figure/Figure3/high_RME_rank.pdf",high_RME_count_p+high_RME_ratio_p+plot_layout(heights=c(1,1.5)), device = "pdf", width = 24, height = 14, units = "cm", dpi = 300,bg="white")
 
 # Supplementary Figure 3e,f
 Canonical_RME_ratio<-no_biallelic_ratio%>%subset(type%in%c("chrX","OR"))%>%arrange(desc(1-Biallelic), desc(Maternal_specific)) 
