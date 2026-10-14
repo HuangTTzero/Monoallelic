@@ -1086,7 +1086,7 @@ Positve_p<-ggplot() +
         legend.text = element_text(colour = 'black',size = 8),
         legend.key.size = unit(10, "pt"),
 ) 
-ggsave(filename ="~/F1_OSN/analysis/figure/Figure1/Positve.pdf",Positve_p, device = "pdf", width = 10, height =7, units = "cm", dpi = 300,bg="white")
+ggsave(filename ="~/F1_OSN/analysis/figure/Figure2/Positive.pdf",Positve_p, device = "pdf", width = 10, height =7, units = "cm", dpi = 300,bg="white")
 
 
 # permutation 100 times
@@ -1765,83 +1765,6 @@ ggsave(
   nobiallelic_perm_overlay_hex_log10_p,
   device = "pdf", width = 10.5, height = 8, units = "cm", dpi = 300, bg = "white"
 )
-# # Version 2: hex bin, log2-scaled permutation count (low ~ white, high ~ dark)
-# nobiallelic_perm_overlay_hex_log2_p <- ggplot() +
-#   geom_hex(
-#     data = perm_fig2e_data,
-#     aes(x = log10(count), y = Parental_specific),
-#     bins = perm_hex_bins,
-#     alpha = 0.6
-#   ) +
-#   scale_fill_gradientn(
-#     colours = perm_fill_colors,
-#     trans = scales::log_trans(base = 2),
-#     limits = c(1, NA),
-#     oob = scales::squish,
-#     name = "Permutation\ncount (log2)"
-#   ) +
-#   geom_point(
-#     data = no_biallelic_fig2e,
-#     aes(x = log10(count), y = Parental_specific, color = type),
-#     size = 1.2,
-#     alpha = 0.95,
-#     inherit.aes = FALSE
-#   ) +
-#   scale_color_manual(values = fig2e_type_colors, name = "Gene Type") +
-#   guides(fill = guide_colorbar(order = 1), color = guide_legend(order = 2)) +
-#   scale_x_continuous(limits = c(log10(10), NA)) +
-#   scale_y_continuous(limits = c(0, 1)) +
-#   labs(title = "Hex (log2 count)",
-#        x = perm_overlay_base$xlab, y = perm_overlay_base$ylab) +
-#   perm_overlay_base$theme
-
-# nobiallelic_perm_overlay_combined_p <- patchwork::wrap_plots(
-#   nobiallelic_perm_overlay_hex_log10_p,
-#   nobiallelic_perm_overlay_hex_log2_p,
-#   ncol = 2
-# )
-# ggsave(
-#   filename = "~/F1_OSN/analysis/figure/Figure2/no_biallelic_perm_overlay.pdf",
-#   nobiallelic_perm_overlay_combined_p,
-#   device = "pdf", width = 21, height = 8, units = "cm", dpi = 300, bg = "white"
-# )
-
-# Version 3: raw permutation points (dot) instead of hex density
-# nobiallelic_perm_overlay_dot_p <- ggplot() +
-#   geom_point(
-#     data = perm_fig2e_data,
-#     aes(x = log10(count), y = Parental_specific),
-#     color = "#7a9bc4",
-#     size = 0.25,
-#     alpha = 0.15
-#   ) +
-#   geom_point(
-#     data = no_biallelic_fig2e,
-#     aes(x = log10(count), y = Parental_specific, color = type),
-#     size = 1.2,
-#     alpha = 0.95,
-#     inherit.aes = FALSE
-#   ) +
-#   scale_color_manual(values = fig2e_type_colors, name = "Gene Type") +
-#   scale_x_continuous(limits = c(log10(10), NA)) +
-#   scale_y_continuous(limits = c(0, 1)) +
-#   labs(
-#     title = "Permutation (raw dots)",
-#     x = perm_overlay_base$xlab,
-#     y = perm_overlay_base$ylab
-#   ) +
-#   perm_overlay_base$theme
-
-# ggsave(
-#   filename = "~/F1_OSN/analysis/figure/Figure2/no_biallelic_perm_overlay_dot.pdf",
-#   nobiallelic_perm_overlay_dot_p,
-#   device = "pdf",
-#   width = 12,
-#   height = 8,
-#   units = "cm",
-#   dpi = 300,
-#   bg = "white"
-# )
 
 candicate_gene<-no_biallelic%>%subset(type=="Others"&gene!="Peg3"&gene!="Kcnq1ot1")#87,去除印记基因
 candicate_gene_ratio<-final_count_ratio%>%subset(gene%in%candicate_gene$gene)%>%mutate(Parental_specific=Maternal_specific+Paternal_specific)
